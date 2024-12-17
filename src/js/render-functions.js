@@ -43,7 +43,7 @@ export function showError(message) {
   iziToast.error({
     title: 'Error',
     message,
-    position: 'topLeft',
+    position: 'topRight',
   });
 }
 
@@ -51,6 +51,6 @@ export function showInfo(message) {
   iziToast.info({
     title: 'Info',
     message,
-    position: 'topLeft',
+    position: 'topRight',
   });
 }
