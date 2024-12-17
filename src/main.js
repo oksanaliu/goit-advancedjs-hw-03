@@ -1,4 +1,4 @@
-import { fetchImages } from './pixabay-api.js';
+import { fetchImages } from './js/pixabay-api.js';
 import {
   renderGallery,
   clearGallery,
@@ -6,7 +6,7 @@ import {
   hideLoader,
   showError,
   showInfo,
-} from './render-functions.js';
+} from './js/render-functions.js';
 
 import SimpleLightbox from 'simplelightbox';
 import 'simplelightbox/dist/simple-lightbox.min.css';
