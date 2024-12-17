@@ -47,6 +47,14 @@ export default defineConfig(({ command, mode }) => {
       SortCss({
         sort: 'mobile-first',
       }),
+      viteStaticCopy({
+        targets: [
+          {
+            src: 'img/**/*',
+            dest: 'img',
+          },
+        ],
+      }),
     ],
   };
 });
