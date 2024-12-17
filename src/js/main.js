@@ -43,24 +43,31 @@ searchForm.addEventListener('submit', async event => {
   showLoader();
 
   try {
+    const startTime = Date.now();
     const data = await fetchImages(query, currentPage);
 
-    if (!data.hits || data.hits.length === 0) {
-      showInfo(
-        'Sorry, there are no images matching your search query. Please try again!'
-      );
-      return;
-    }
+    const delay = Math.max(500 - (Date.now() - startTime), 0);
+    setTimeout(() => {
+      if (!data.hits || data.hits.length === 0) {
+        showInfo(
+          'Sorry, there are no images matching your search query. Please try again!'
+        );
+        hideLoader();
+        return;
+      }
 
-    renderGallery(data.hits);
-    galleryLightbox.refresh();
+      renderGallery(data.hits);
+      galleryLightbox.refresh();
+      hideLoader();
+    }, delay);
   } catch (error) {
     console.error(error);
-    showError(
-      'Sorry, there was an error fetching images. Please try again later.'
-    );
-  } finally {
-    hideLoader();
+    setTimeout(() => {
+      showError(
+        'Sorry, there was an error fetching images. Please try again later.'
+      );
+      hideLoader();
+    }, 500);
   }
 });
 
@@ -68,22 +75,28 @@ window.addEventListener('scroll', async () => {
   if (window.innerHeight + window.scrollY >= document.body.offsetHeight - 100) {
     currentPage += 1;
     showLoader();
-
     try {
+      const startTime = Date.now();
       const data = await fetchImages(query, currentPage);
 
-      if (!data.hits || data.hits.length === 0) {
-        showInfo('No more images to load.');
-        return;
-      }
+      const delay = Math.max(500 - (Date.now() - startTime), 0);
+      setTimeout(() => {
+        if (!data.hits || data.hits.length === 0) {
+          showInfo('No more images to load.');
+          hideLoader();
+          return;
+        }
 
-      renderGallery(data.hits);
-      galleryLightbox.refresh();
+        renderGallery(data.hits);
+        galleryLightbox.refresh();
+        hideLoader();
+      }, delay);
     } catch (error) {
       console.error(error);
-      showInfo('No more images to load.');
-    } finally {
-      hideLoader();
+      setTimeout(() => {
+        showInfo('No more images to load.');
+        hideLoader();
+      }, 500);
     }
   }
 });
