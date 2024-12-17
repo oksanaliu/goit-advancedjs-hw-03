@@ -12,17 +12,17 @@ import SimpleLightbox from 'simplelightbox';
 import 'simplelightbox/dist/simple-lightbox.min.css';
 import iziToast from 'izitoast';
 import 'izitoast/dist/css/iziToast.min.css';
-import 'loaders.css/loaders.min.css';
 
 const searchForm = document.querySelector('#search-form');
 const inputField = document.querySelector('input[name="searchQuery"]');
 const loaderContainer = document.createElement('div');
 loaderContainer.classList.add('loader', 'hidden');
-loaderContainer.innerHTML = `<div class="loader-inner ball-pulse">
-  <div></div>
-  <div></div>
-  <div></div>
-</div>`;
+loaderContainer.innerHTML = `
+  <div class="spinner">
+    <div class="double-bounce1"></div>
+    <div class="double-bounce2"></div>
+  </div>
+`;
 document.body.appendChild(loaderContainer);
 
 let currentPage = 1;
@@ -57,6 +57,7 @@ searchForm.addEventListener('submit', async event => {
       }
       renderGallery(data.hits);
       galleryLightbox.refresh();
+      hideLoader();
     }, delay);
   } catch (error) {
     console.error(error);
@@ -66,8 +67,6 @@ searchForm.addEventListener('submit', async event => {
       );
       hideLoader();
     }, 500);
-  } finally {
-    hideLoader();
   }
 });
 
@@ -89,6 +88,7 @@ window.addEventListener('scroll', async () => {
         }
         renderGallery(data.hits);
         galleryLightbox.refresh();
+        hideLoader();
       }, delay);
     } catch (error) {
       console.error(error);

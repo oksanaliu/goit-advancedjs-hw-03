@@ -20,7 +20,7 @@ export function renderGallery(images) {
     `
     )
     .join('');
-  gallery.innerHTML = markup;
+  gallery.insertAdjacentHTML('beforeend', markup);
 }
 
 export function clearGallery() {
@@ -43,7 +43,7 @@ export function showError(message) {
   iziToast.error({
     title: 'Error',
     message,
-    position: 'topRight',
+    position: 'topCenter',
   });
 }
 
@@ -51,6 +51,6 @@ export function showInfo(message) {
   iziToast.info({
     title: 'Info',
     message,
-    position: 'topRight',
+    position: 'topCenter',
   });
 }
