@@ -30,12 +30,16 @@ export function clearGallery() {
 
 export function showLoader() {
   const loader = document.querySelector('.loader');
+  loader.style.display = 'inline-block';
   loader.classList.remove('hidden');
 }
 
 export function hideLoader() {
   const loader = document.querySelector('.loader');
   loader.classList.add('hidden');
+  setTimeout(() => {
+    loader.style.display = 'none';
+  }, 300);
 }
 
 export function showError(message) {
@@ -43,7 +47,7 @@ export function showError(message) {
   iziToast.error({
     title: 'Error',
     message,
-    position: 'topRight',
+    position: 'topCenter',
   });
 }
 
@@ -51,6 +55,6 @@ export function showInfo(message) {
   iziToast.info({
     title: 'Info',
     message,
-    position: 'topRight',
+    position: 'topCenter',
   });
 }

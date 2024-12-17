@@ -15,19 +15,13 @@ import 'izitoast/dist/css/iziToast.min.css';
 
 const searchForm = document.querySelector('#search-form');
 const inputField = document.querySelector('input[name="searchQuery"]');
-const loaderContainer = document.createElement('div');
-loaderContainer.classList.add('loader', 'hidden');
-loaderContainer.innerHTML = `
-  <div class="spinner">
-    <div class="double-bounce1"></div>
-    <div class="double-bounce2"></div>
-  </div>
-`;
-document.body.appendChild(loaderContainer);
 
 let currentPage = 1;
 let query = '';
 let galleryLightbox = new SimpleLightbox('.gallery a');
+
+// Select loader directly from HTML
+const loader = document.querySelector('.loader');
 
 searchForm.addEventListener('submit', async event => {
   event.preventDefault();
@@ -71,7 +65,10 @@ searchForm.addEventListener('submit', async event => {
 });
 
 window.addEventListener('scroll', async () => {
-  if (window.innerHeight + window.scrollY >= document.body.offsetHeight - 100) {
+  if (
+    window.innerHeight + window.scrollY >= document.body.offsetHeight - 100 &&
+    !loader.classList.contains('hidden')
+  ) {
     currentPage += 1;
     showLoader();
 
