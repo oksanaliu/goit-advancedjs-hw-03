@@ -3,18 +3,18 @@ export function renderGallery(images) {
   const markup = images
     .map(
       image => `
-      <a href="${image.largeImageURL}" class="gallery-item">
-        <div class="photo-card">
-          <img src="${image.webformatURL}" alt="${image.tags}" loading="lazy" />
-          <div class="info">
-            <p><b>Likes:</b> ${image.likes}</p>
-            <p><b>Views:</b> ${image.views}</p>
-            <p><b>Comments:</b> ${image.comments}</p>
-            <p><b>Downloads:</b> ${image.downloads}</p>
+        <a href="${image.largeImageURL}" class="gallery-item">
+          <div class="photo-card">
+            <img src="${image.webformatURL}" alt="${image.tags}" loading="lazy" />
+            <div class="info">
+              <p><b>Likes:</b> ${image.likes}</p>
+              <p><b>Views:</b> ${image.views}</p>
+              <p><b>Comments:</b> ${image.comments}</p>
+              <p><b>Downloads:</b> ${image.downloads}</p>
+            </div>
           </div>
-        </div>
-      </a>
-    `
+        </a>
+      `
     )
     .join('');
   gallery.innerHTML = markup;
@@ -34,7 +34,9 @@ export function hideLoader() {
   const loader = document.querySelector('.loader');
   loader.classList.add('hidden');
 }
+
 export function showError(message) {
+  console.log('Error message:', message);
   iziToast.error({
     title: 'Error',
     message,
