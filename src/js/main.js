@@ -55,10 +55,8 @@ searchForm.addEventListener('submit', async event => {
         hideLoader();
         return;
       }
-
       renderGallery(data.hits);
       galleryLightbox.refresh();
-      hideLoader();
     }, delay);
   } catch (error) {
     console.error(error);
@@ -68,6 +66,8 @@ searchForm.addEventListener('submit', async event => {
       );
       hideLoader();
     }, 500);
+  } finally {
+    hideLoader();
   }
 });
 
@@ -75,6 +75,7 @@ window.addEventListener('scroll', async () => {
   if (window.innerHeight + window.scrollY >= document.body.offsetHeight - 100) {
     currentPage += 1;
     showLoader();
+
     try {
       const startTime = Date.now();
       const data = await fetchImages(query, currentPage);
@@ -86,10 +87,8 @@ window.addEventListener('scroll', async () => {
           hideLoader();
           return;
         }
-
         renderGallery(data.hits);
         galleryLightbox.refresh();
-        hideLoader();
       }, delay);
     } catch (error) {
       console.error(error);
