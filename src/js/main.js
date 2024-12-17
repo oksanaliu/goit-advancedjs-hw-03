@@ -36,7 +36,7 @@ searchForm.addEventListener('submit', async event => {
   try {
     const data = await fetchImages(query, currentPage);
 
-    if (data.hits.length === 0) {
+    if (!data.hits || data.hits.length === 0) {
       showInfo(
         'Sorry, there are no images matching your search query. Please try again!'
       );
