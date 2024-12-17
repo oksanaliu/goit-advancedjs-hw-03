@@ -36,17 +36,12 @@ searchForm.addEventListener('submit', async event => {
   try {
     const data = await fetchImages(query, currentPage);
 
-    if (data.hits.length === 0) {
-      showInfo(
-        'Sorry, there are no images matching your search query. Please try again!'
-      );
-      return;
-    }
-
     renderGallery(data.hits);
     galleryLightbox.refresh();
   } catch (error) {
-    showError('An error occurred while fetching images.');
+    showInfo(
+      'Sorry, there are no images matching your search query. Please try again!'
+    );
   } finally {
     hideLoader();
   }
@@ -60,15 +55,10 @@ window.addEventListener('scroll', async () => {
     try {
       const data = await fetchImages(query, currentPage);
 
-      if (data.hits.length === 0) {
-        showInfo('No more images to load.');
-        return;
-      }
-
       renderGallery(data.hits);
       galleryLightbox.refresh();
     } catch (error) {
-      showError('An error occurred while fetching additional images.');
+      showInfo('No more images to load.');
     } finally {
       hideLoader();
     }
