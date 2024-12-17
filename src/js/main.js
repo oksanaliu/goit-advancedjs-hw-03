@@ -20,7 +20,6 @@ let currentPage = 1;
 let query = '';
 let galleryLightbox = new SimpleLightbox('.gallery a');
 
-// Select loader directly from HTML
 const loader = document.querySelector('.loader');
 
 searchForm.addEventListener('submit', async event => {
@@ -28,14 +27,16 @@ searchForm.addEventListener('submit', async event => {
 
   query = inputField.value.trim();
 
-  if (!query) {
-    showInfo('Please enter a search term.');
+  if (!query || !/^[a-zA-Z0-9 ]+$/.test(query)) {
+    showInfo(
+      'Please enter a valid search term using only letters, numbers, and spaces.'
+    );
     return;
   }
+
   clearGallery();
   currentPage = 1;
   showLoader();
-
   try {
     const startTime = Date.now();
     const data = await fetchImages(query, currentPage);
