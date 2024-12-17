@@ -12,9 +12,18 @@ import SimpleLightbox from 'simplelightbox';
 import 'simplelightbox/dist/simple-lightbox.min.css';
 import iziToast from 'izitoast';
 import 'izitoast/dist/css/iziToast.min.css';
+import 'loaders.css/loaders.min.css';
 
 const searchForm = document.querySelector('#search-form');
 const inputField = document.querySelector('input[name="searchQuery"]');
+const loaderContainer = document.createElement('div');
+loaderContainer.classList.add('loader', 'hidden');
+loaderContainer.innerHTML = `<div class="loader-inner ball-pulse">
+  <div></div>
+  <div></div>
+  <div></div>
+</div>`;
+document.body.appendChild(loaderContainer);
 
 let currentPage = 1;
 let query = '';
@@ -48,7 +57,7 @@ searchForm.addEventListener('submit', async event => {
   } catch (error) {
     console.error(error);
     showError(
-      'Sorry, there are no images matching your search query. Please try again!'
+      'Sorry, there was an error fetching images. Please try again later.'
     );
   } finally {
     hideLoader();
@@ -63,7 +72,7 @@ window.addEventListener('scroll', async () => {
     try {
       const data = await fetchImages(query, currentPage);
 
-      if (data.hits.length === 0) {
+      if (!data.hits || data.hits.length === 0) {
         showInfo('No more images to load.');
         return;
       }
